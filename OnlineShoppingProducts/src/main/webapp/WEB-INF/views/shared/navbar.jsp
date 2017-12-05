@@ -7,11 +7,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item" id="home">
-              <a class="nav-link" href="${contextRoot}/home">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
+           
             <li class="nav-item" id="about">
               <a class="nav-link" href="${contextRoot}/about">About Us</a>
             </li>
