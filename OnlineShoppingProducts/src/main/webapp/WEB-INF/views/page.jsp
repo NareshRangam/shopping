@@ -20,9 +20,14 @@
 <meta name="author" content="">
 
 <title>Online Shopping - ${title}</title>
-
+<script>
+	window.menu = '${title}';
+</script>
 <!-- Bootstrap core CSS -->
 <link href="${css}/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Readable Theme -->
+<link href="${css}/bootstrap-readable-theme.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="${css}/myapp.css" rel="stylesheet">
@@ -31,34 +36,45 @@
 
 <body>
 
-	<!-- Navigation -->
-	<%@include file="./shared/navbar.jsp"%>
+	<div class="wrapper">
 
-	<!-- Page Content -->
-	<c:if test="${userClickHome == true}">
-		<%@include file="home.jsp"%>
-	</c:if>
-	<!--  About Us -->
-	<c:if test="${userClickAbout == true}">
-		<%@include file="about.jsp"%>
-	</c:if>
-	<!-- contact -->
-	<c:if test="${userClickContact == true}">
-		<%@include file="contact.jsp"%>
-	</c:if>
-	
-	
-	<!-- Footer -->
-	<%@include file="./shared/footer.jsp"%>
+		<!-- Navigation -->
+		<%@include file="./shared/navbar.jsp"%>
 
-	<!-- Bootstrap core JavaScript -->
+		<!-- Page Content -->
+		<div class="content">
+			<c:if test="${userClickHome == true}">
+				<%@include file="home.jsp"%>
+			</c:if>
+			<!--  About Us -->
+			<c:if test="${userClickAbout == true}">
+				<%@include file="about.jsp"%>
+			</c:if>
+			<!-- contact -->
+			<c:if test="${userClickContact == true}">
+				<%@include file="contact.jsp"%>
+			</c:if>
+			<!-- list all products -->
+			<c:if
+				test="${userClickAllProducts == true or userClickCategoryProducts == true}">
+				<%@include file="listProducts.jsp"%>
+			</c:if>
 
-	<!-- <script src="vendor/jquery/jquery.min.js"></script>
+		</div>
+		<!-- Footer -->
+		<%@include file="./shared/footer.jsp"%>
+
+		<!-- Bootstrap core JavaScript -->
+
+		<!-- <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
-	<script src="${js}/jquery.js"></script>
-	<script src="${js}/bootstrap.min.js"></script>
+		<script src="${js}/jquery.js"></script>
+		<script src="${js}/bootstrap.min.js"></script>
+		<!-- Self coded javascript -->
+		<script src="${js}/myapp.js"></script>
 
+	</div>
 </body>
 
 </html>
