@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ss.Exception.ProductNotFoundException;
 import com.ss.dao.CategoryDAO;
 import com.ss.dao.ProductDAO;
 import com.ss.dto.Category;
@@ -92,11 +93,11 @@ public ModelAndView showingSingleProduct(@PathVariable("id") int id)
 //viewing single product
 
 @RequestMapping(value="/show/{id}/product")
-public ModelAndView showCategoryProducts(@PathVariable("id") int id)
+public ModelAndView showCategoryProducts(@PathVariable("id") int id)throws ProductNotFoundException
 {
 	ModelAndView model=new ModelAndView("page");
 	Product product=productDAO.get(id);
-	
+	if(product==null)throw new ProductNotFoundException();
 	//update view count
 	model.addObject("title",product.getName());
 	model.addObject("product", product);
