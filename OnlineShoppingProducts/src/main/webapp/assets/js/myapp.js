@@ -54,7 +54,16 @@ default:
 				url:jsonUrl,
 				dataSrc:''
 			},
-			columns:[			         
+			columns:[
+			         {
+			        	 data:'code',
+			        	 bSortable:false,
+			        	 mRender:function(data,type,row)
+			        	 {
+			        		 return '<img src="'+window.contextRoot+'/resources/images/'+data+'.jpg" class="dataTableImg"/>';
+			        	 }
+			         },
+			         
 			         {
 			        	 data:'name'
 			         },
@@ -70,6 +79,17 @@ default:
 			         },
 			         {
 			        	 data:'quantity'
+			         },
+			         {
+			        	 data:'id',
+			        	 bSortable:false,
+			        	mRender:function(data,type,row)
+			        	{
+			        		var str='';
+			        		str+='<a href="'+window.contextRoot+'/show/'+data+'/product" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a> &#160;';
+			        		str+='<a href="'+window.contextRoot+'/cart/add/'+data+'/product class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+			        		return str;
+			        	}
 			         }
 			         ]
 			});

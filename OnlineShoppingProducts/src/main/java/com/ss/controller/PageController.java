@@ -1,5 +1,7 @@
 package com.ss.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,19 +10,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ss.dao.CategoryDAO;
+import com.ss.dao.ProductDAO;
 import com.ss.dto.Category;
+import com.ss.dto.Product;
 
 @Controller
 public class PageController {
+	private static final Logger logger=LoggerFactory.getLogger(PageController.class);
 	@Autowired
 	private CategoryDAO categoryDao;
-	
+	@Autowired
+	private ProductDAO productDAO;
 	
 @RequestMapping(value={"/","/index","/home"})
 	public ModelAndView index()
 	{
 		ModelAndView model=new ModelAndView("page");
 		model.addObject("title", "Home");
+		logger.info("Inside Page Controller index method-INFO");
+		logger.debug("Inside Page Controller index method-debug");
 		//passing the list of categories
 		model.addObject("categories", categoryDao.list());
 		model.addObject("userClickHome",true);
@@ -64,7 +72,7 @@ public ModelAndView showAllProducts()
 /*method to get single product based on category id*/
 
 @RequestMapping(value="/show/category/{id}/products")
-public ModelAndView showCategoryProducts(@PathVariable("id") int id)
+public ModelAndView showingSingleProduct(@PathVariable("id") int id)
 {
 	ModelAndView model=new ModelAndView("page");
 	
@@ -81,10 +89,20 @@ public ModelAndView showCategoryProducts(@PathVariable("id") int id)
 	
 }
 
+//viewing single product
+
+@RequestMapping(value="/show/{id}/product")
+public ModelAndView showCategoryProducts(@PathVariable("id") int id)
+{
+	ModelAndView model=new ModelAndView("page");
+	Product product=productDAO.get(id);
+	
+	//update view count
+	model.addObject("title",product.getName());
+	model.addObject("product", product);
+	model.addObject("userClickShowProduct", true);
 
 
-
-
-
-
+return model;
+}
 }
