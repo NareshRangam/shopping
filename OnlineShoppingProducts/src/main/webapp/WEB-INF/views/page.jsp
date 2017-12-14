@@ -66,6 +66,10 @@
 			<c:if test="${userClickShowProduct == true}">
 				<%@include file="singleProduct.jsp"%>
 			</c:if>
+			<!-- Manage products -->
+			<c:if test="${userClickManageProducts == true}">
+				<%@include file="manageProducts.jsp"%>
+			</c:if>
 		</div>
 		<!-- Footer -->
 		<%@include file="./shared/footer.jsp"%>
@@ -86,6 +90,9 @@
 		
 		<!--Datatable Bootstrap Script -->
 		<script src="${js}/dataTables.bootstrap.js"></script>
+		
+		<!--BootBox.js-->
+		<script src="${js}/bootbox.min.js"></script>
 		
 		<!-- Self coded javascript -->
 		<script src="${js}/myapp.js"></script>
