@@ -23,23 +23,19 @@ default:
 	break;
 }
 
-		//jquery for datatable
-		/*//creating dataset
-	var products=[
-	              
-	              ['1','naresh1'],
-	              ['2','lokesh'],
-	              ['3','suresh'],
-	              ['4','venkatesh'],
-	              ['5','somesh'],
-	              ['6','nagesh']	            
-	            ];*/
+		// jquery for datatable
+		/*
+		 * //creating dataset var products=[
+		 * 
+		 * ['1','naresh1'], ['2','lokesh'], ['3','suresh'], ['4','venkatesh'],
+		 * ['5','somesh'], ['6','nagesh'] ];
+		 */
 	var $table=$('#productListTable');
 	
-	//execute this below code when table load
+	// execute this below code when table load
 	if($table.length)
 		{
-		/*console.log('inside table');*/
+		/* console.log('inside table'); */
 		var jsonUrl='';
 		if(window.categoryId=='')
 			{
@@ -127,7 +123,7 @@ default:
 			});
 		}
 	
-	//dismissing the alert after 3 seconds
+	// dismissing the alert after 3 seconds
 	var $alert=$('.alert');
 	if($alert.length)
 		{
@@ -137,18 +133,18 @@ default:
 		},3000 )
 		}
 	
-	//toggle switch
+	// toggle switch
 	$('.switch input[type="checkbox"]').on('change',function(){
 		var checkbox=$(this);
 		var checked=checkbox.prop('checked');
 		var dMsg=(checked)? 'You want to activate the product':
 			'You want to de-activate the product';
-var value=checkbox.prop('value');
-bootbox.confirm({
-	size:'medium',
-	title:'Product Activation & Deactivation',
-	message:dMsg,
-	callback:function(confirmed){
+		var value=checkbox.prop('value');
+		bootbox.confirm({
+			size:'medium',
+			title:'Product Activation & Deactivation',
+			message:dMsg,
+			callback:function(confirmed){
 		if(confirmed)
 			{
 				console.log(value);
@@ -166,6 +162,130 @@ bootbox.confirm({
 });
 		
 	});
+	// data table for admin
+var $adminProductTable=$('#adminProductsTable');
+	
+	// execute this below code when table load
+	if($adminProductTable.length)
+		{
+		 console.log('inside table'); 
+		var jsonUrl=window.contextRoot+'/json/data/admin/all/products';
+		
+		$adminProductTable.DataTable({
+			
+			lengthMenu:[[10,30,50,-1],['10 Records','30 Records','50 Records','All']],
+			pageLength:30,
+			ajax:{
+				url:jsonUrl,
+				dataSrc:''
+			},
+			columns:[
+			         {
+			        	data:'id' 
+			         },
+			         	{
+			        	 data:'code',
+			        	 bSortable:false,
+			        	 mRender:function(data,type,row)
+			        	 {
+			        		 return '<img src="'+window.contextRoot+'/resources/images/'+data+'.jpg" class="adminDataTableImg"/>';
+			        	 }
+			         },
+			         
+			         {
+			        	 data:'name'
+			         },
+			         {
+			        	 data:'brand'
+			         },
+			         
+			         {
+							data : 'quantity',
+							mRender : function(data, type, row) {
+
+								if (data < 1) {
+									return '<span style="color:red">Out of Stock!</span>';
+								}
+
+								return data;
+
+							}
+						},
+						{
+				        	 data:'unitPrice',
+				        	 mRender:function(data,type,row)
+				        	 {
+				        		 return '&#8377; '+data 
+				        	 }
+				         },
+						{
+							data : 'active',
+							bSortable:false,
+				        	 mRender:function(data,type,row)
+				        	 {
+								var str='';
+								str+='<label class="switch">';
+								if(data)
+									{
+									str+='<input type="checkbox" checked="checked" value="'+row.id+'"/>';
+									}
+								else
+									{
+									str+='<input type="checkbox" value="'+rwo.id+'"/>';
+									}
+								
+								str+='<div class="slider"></div></label>';
+								
+								return str;
+								}
+						},
+				         {
+							data : 'id',
+							bSortable:false,
+				        	 mRender:function(data,type,row)
+				        	 {
+				        		 var str='';
+				        		 str+='<a href="${contextRoot}/manage/'+data+'/product" class="btn btn-warning">';
+				        		 str+='<span class="glyphicon glyphicon-pencil"></span></a>';
+				        		 return str;
+				        	 }
+				         }
+						],
+						initComplete:function()
+						{
+							var api=this.api();
+							api.	$('.switch input[type="checkbox"]').on('change',function(){
+								var checkbox=$(this);
+								var checked=checkbox.prop('checked');
+								var dMsg=(checked)? 'You want to activate the product':
+									'You want to de-activate the product';
+								var value=checkbox.prop('value');
+								bootbox.confirm({
+									size:'medium',
+									title:'Product Activation & Deactivation',
+									message:dMsg,
+									callback:function(confirmed){
+								if(confirmed)
+									{
+										console.log(value);
+										bootbox.alert({
+											size:'medium',
+											title:'Information',
+											message:'Your going to perform an operation on product'+value
+											
+										});
+									}
+								else{
+									checkbox.prop('checked',!checked);
+								}
+							}
+						});
+								
+							});
+						}
+			});
+		}
+
 	
 		});
 

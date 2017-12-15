@@ -131,7 +131,7 @@
 					</tr>					
 				</thead>
 				
-				<tbody>
+				<%-- <tbody>
 				<tr>
 				<td>38</td>
 				<td>
@@ -173,7 +173,7 @@
 				<a href="${contextRoot}/manage/2/product" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
 				</td>
 				</tr>
-				</tbody>
+				</tbody> --%>
 				
 				<tfoot>
 					<tr>					
