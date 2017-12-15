@@ -75,19 +75,3 @@ public class ProductTestCase {
 	}*/
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

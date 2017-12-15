@@ -231,7 +231,7 @@ var $adminProductTable=$('#adminProductsTable');
 									}
 								else
 									{
-									str+='<input type="checkbox" value="'+rwo.id+'"/>';
+									str+='<input type="checkbox" value="'+row.id+'"/>';
 									}
 								
 								str+='<div class="slider"></div></label>';
@@ -245,7 +245,7 @@ var $adminProductTable=$('#adminProductsTable');
 				        	 mRender:function(data,type,row)
 				        	 {
 				        		 var str='';
-				        		 str+='<a href="${contextRoot}/manage/'+data+'/product" class="btn btn-warning">';
+				        		 str+='<a href="'+window.contextRoot+'/manage/'+data+'/product" class="btn btn-warning">';
 				        		 str+='<span class="glyphicon glyphicon-pencil"></span></a>';
 				        		 return str;
 				        	 }
@@ -268,12 +268,17 @@ var $adminProductTable=$('#adminProductsTable');
 								if(confirmed)
 									{
 										console.log(value);
-										bootbox.alert({
-											size:'medium',
-											title:'Information',
-											message:'Your going to perform an operation on product'+value
-											
-										});
+										var activationUrl=window.contextRoot+'/manage/product/'+value+'/activation';
+										$.post(activationUrl,function(data)
+												{
+											bootbox.alert({
+												size:'medium',
+												title:'Information',
+												message:data
+												
+											});
+												});
+										
 									}
 								else{
 									checkbox.prop('checked',!checked);
@@ -286,7 +291,40 @@ var $adminProductTable=$('#adminProductsTable');
 			});
 		}
 
+	//validation code for category
 	
+	var $categoryForm=$('#categoryForm');
+	
+	if($categoryForm.length)
+		{
+		$categoryForm.validate({
+			rules:{
+				name:{
+					required:true,
+					minlength:2
+				},
+				description:{
+					required:true
+				}
+			},
+			messages:{
+				name:{
+					required:'Please Enter the Category Name',
+					minlength:'The Category Name Should not be less than 2 Characters'
+				},
+				description:{
+					required:'Please Add Description for the category'
+				}
+			},
+			errorElement:'em',
+			errorPlacement:function(error,element){
+				//add the class of help block
+				error.addClass('help-block');
+				//add the error element after the input element
+				error.insertAfter(element);
+			}
+		});
+		}
 		});
 
 
