@@ -22,20 +22,37 @@ public class User implements Serializable{
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotBlank(message = "Please enter First Name!")
 	@Column(name = "first_name")
 	private String firstName;
+	
+	@NotBlank(message = "Please enter Last Name!")
 	@Column(name = "last_name")
 	private String lastName;
+	
+	@NotBlank(message = "Please enter Email!")
 	private String email;
-	@Column(name = "contact_number")
+		
+	@Column(name = "contact_number")	
+	@NotBlank(message = "Please enter Contact Number!")
 	private String contactNumber;
+	
+	@NotBlank(message = "Please enter role!")
 	private String role;
+	
+	@NotBlank(message = "Please enter Password!")
 	private String password;
 	private boolean enabled = true;
+	/*make this field as transient not to save in database*/
 	@Transient
 	private String confirmPassword;
 	
