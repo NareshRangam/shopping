@@ -69,7 +69,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		}
 	}

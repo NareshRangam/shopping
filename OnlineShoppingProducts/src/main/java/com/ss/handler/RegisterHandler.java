@@ -3,6 +3,7 @@ package com.ss.handler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.ss.dao.UserDAO;
@@ -16,6 +17,8 @@ public class RegisterHandler {
 
 	@Autowired
 	private UserDAO userDao;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	public RegisterModel init()
 	{
 		return new RegisterModel();
@@ -58,6 +61,10 @@ public class RegisterHandler {
 			cart.setUser(user);
 			user.setCart(cart);
 		}
+		
+		//encrypt the password
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
 	/*	saving user details*/
 		
 		userDao.addUser(user);

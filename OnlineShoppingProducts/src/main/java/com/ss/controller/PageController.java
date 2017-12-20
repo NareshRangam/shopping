@@ -3,6 +3,7 @@ package com.ss.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,8 +103,31 @@ public ModelAndView showCategoryProducts(@PathVariable("id") int id)throws Produ
 	model.addObject("title",product.getName());
 	model.addObject("product", product);
 	model.addObject("userClickShowProduct", true);
-
-
 return model;
+}
+/*login*/
+@RequestMapping(value="/login")
+public ModelAndView login(@RequestParam(name="error",required=false)String error)
+{
+	
+	ModelAndView model=new ModelAndView("login");
+	if(error!=null)
+	{
+		model.addObject("message","Invalid Username and Password");
+	}
+	model.addObject("title", "Login");
+	return model;
+	
+}
+//access denied
+@RequestMapping(value="/access-denied")
+public ModelAndView accessDenied()
+{
+	ModelAndView model=new ModelAndView("error");
+	model.addObject("errorTitle","Restrictions");
+	model.addObject("errorDescription", "Your are not Authorize to page your looking ");
+	model.addObject("title", "403-Access Denied");
+	return model;
+	
 }
 }
