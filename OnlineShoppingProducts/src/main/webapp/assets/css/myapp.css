@@ -160,4 +160,8 @@ input:checked + .slider:before {
 .help-block {
 	color: #ff0000;
 }
+.table-responsive
+{
+	overflow-x:inherit;
+}
 

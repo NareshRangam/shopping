@@ -78,6 +78,10 @@
 						<sf:radiobutton path="role" value="SUPPLIER"/>Supplier
 						<sf:errors path="role" cssClass="help-block" element="em" />
 						</label>
+						<label class="radio-inline">
+						<sf:radiobutton path="role" value="ADMIN"/>Admin
+						<sf:errors path="role" cssClass="help-block" element="em" />
+						</label>
 						</div>
 						</div>
 

@@ -26,7 +26,7 @@ public class Cart implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int id;
 	@OneToOne
-	/*@JoinColumn(name="uid")*/
+	@JoinColumn(name="userId")
 	private User user;
 	@Column(name = "grand_total")
 	private double grandTotal;

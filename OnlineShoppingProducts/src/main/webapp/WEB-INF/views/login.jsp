@@ -55,6 +55,7 @@
 		<!-- Page Content -->
 		<div class="content">
 			<div class="container">
+			
 		<!-- it displays when credentials wrong -->
 			<c:if test="${not empty message}">
 			<div class="row">
@@ -63,6 +64,16 @@
 		</div>
 		</div>
 			</c:if>
+			
+			<!-- it displays when has logged out -->
+			<c:if test="${not empty logout}">
+			<div class="row">
+		<div class="col-md-offset-3 col-md-6">
+		<div class="alert alert-danger">${logout}</div>
+		</div>
+		</div>
+			</c:if>
+			
 	<div class="row">
 		<div class="col-md-offset-3 col-md-6">
 			<div class="panel panel-primary">
