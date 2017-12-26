@@ -12,7 +12,7 @@ public interface UserDAO {
 	//Adding Address
 	boolean addAddress(Address address);
 	//Adding Cart
-	boolean updateCart(Cart cart);
+	
 	User getByEmail(String email); 
 	Address getBillingAddress(User user);
 	List<Address> listShippingAddress(User user);
