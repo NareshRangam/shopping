@@ -12,41 +12,51 @@ import com.ss.dao.UserDAO;
 import com.ss.dto.User;
 import com.ss.model.UserModel;
 
+
 @ControllerAdvice
 public class GlobalController {
-
+	
+	
+	@Autowired
+	private UserDAO userDAO;
+	
 	@Autowired
 	private HttpSession session;
-	@Autowired
-	private UserDAO userDao;
-	private UserModel userModel;
+	
+	private UserModel userModel = null;
+	private User user = null;	
+	
+	
 	@ModelAttribute("userModel")
-	public UserModel getUserModel()
-	{
-		if(session.getAttribute("userModel")==null)
-		{
-			//add user model
-			Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-			User user=userDao.getByEmail(authentication.getName());
-			if(user!=null)
-			{
-				// create a new userModel object to pass the user details
-				userModel=new UserModel();
-				userModel.setId(user.getId());
-				userModel.setEmail(user.getEmail());
-				userModel.setRole(user.getRole());
-				userModel.setFullName(user.getFirstName()+" "+user.getLastName());
+	public UserModel getUserModel() {		
+		if(session.getAttribute("userModel")==null) {
+			// get the authentication object
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			
+			
+			if(!authentication.getPrincipal().equals("anonymousUser")){
+				// get the user from the database
+				user = userDAO.getByEmail(authentication.getName());
 				
-				if(userModel.getEmail().equals("USER"))
-				{
-					//set the cart if user is buyer 
-					userModel.setCart(user.getCart());
-				}
-				// set the userModel into session
-				session.setAttribute("userModel", userModel);
-				return userModel;
+				if(user!=null) {
+					// create a new model
+					userModel = new UserModel();
+					// set the name and the id
+					userModel.setId(user.getId());
+					userModel.setFullName(user.getFirstName() + " " + user.getLastName());
+					userModel.setRole(user.getRole());
+					
+					if(user.getRole().equals("USER")) {
+						userModel.setCart(user.getCart());					
+					}				
+	
+					session.setAttribute("userModel", userModel);
+					return userModel;
+				}			
 			}
 		}
-		return (UserModel) session.getAttribute("userModel");
+		
+		return (UserModel) session.getAttribute("userModel");		
 	}
+		
 }

@@ -40,7 +40,7 @@ public class CartLineTestCase {
 	@Test
 	public void testAddNewCartLine()
 	{
-		//1.get the user
+	//1.get the user
 		user=userDao.getByEmail("user@gmail.com");
 		//2.fetch the cart
 		cart=user.getCart();
@@ -59,5 +59,7 @@ public class CartLineTestCase {
 		cart.setGrandTotal(cart.getGrandTotal()+cartLine.getTotal());
 		cart.setCartLines(cart.getCartLines()+1);
 		assertEquals("Unable to update CartLine!",true,cartLineDao.updateCart(cart));
+		//assertEquals("Unable to list CartLine!",1,cartLineDao.list(1).size());
 	}
+	
 }
