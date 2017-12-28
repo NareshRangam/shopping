@@ -43,8 +43,10 @@ ${message}
 							</td>
 							<td data-th="Subtotal" class="text-center">&#8377;${cartLine.total}</td>
 							<td class="actions" data-th="">
-								<button type="button" name="refreshCart" value="${cartLine.id}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-refresh"></span></button>
-								<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>								
+								<c:if test="${cartLine.available == true}">
+								<button type="button" name="refreshCart" class="btn btn-info btn-sm" value="${cartLine.id}"><span class="glyphicon glyphicon-refresh"></span></button>
+							</c:if>	
+								<a  href="${contextRoot}/cart/${cartLine.id}/delete" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>								
 							</td>
 						</tr>
 				</c:forEach>
@@ -56,7 +58,7 @@ ${message}
 							<td class="text-center"><strong>Total &#8377;${userModel.cart.grandTotal}</strong></td>
 						</tr>
 						<tr>
-							<td><a href="#" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Continue Shopping</a></td>
+							<td><a href="${contextRoot}/show/all/products" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Continue Shopping</a></td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center"><strong>Total &#8377;${userModel.cart.grandTotal}</strong></td>
 							<td><a href="#" class="btn btn-success btn-block">Checkout <span class="glyphicon glyphicon-chevron-right"></span></a></td>
@@ -71,6 +73,7 @@ ${message}
 </div>
 </div>
 </c:otherwise>
+
 </c:choose>
 	
 </div>

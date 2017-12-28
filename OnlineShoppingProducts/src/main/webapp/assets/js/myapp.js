@@ -393,8 +393,8 @@ var $loginForm=$('#loginForm');
 		
 		if(currentCount!=originalCount)
 			{
-			/*console.log("current count"+currentCount);
-			console.log("Original count"+originalCount);*/
+			console.log("current count"+currentCount);
+			console.log("Original count"+originalCount);
 			if(currentCount<1 || currentCount>5)
 				{
 				//reverting back to the original count 
